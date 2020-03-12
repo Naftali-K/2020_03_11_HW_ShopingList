@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductViewHolder>{
 
-
+    //Problem in RecycleView of ProductList
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
