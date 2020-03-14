@@ -38,9 +38,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        products.add("Product1");
-        products.add("Product2");
-        products.add("Product3");
+        //insert product list for test adapter
+//        products.add("Product1");
+//        products.add("Product2");
+//        products.add("Product3");
 
         recyclerView = findViewById(R.id.rv_list);
         adapter = new MainActivityAdapter(products);
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
             Gson gson = new Gson();
             products = gson.fromJson(stringFromExtra, ArrayList.class); //Changing string (JSON), to ArrayList.
-                Toast.makeText(getBaseContext(), "items: " + products.size(), Toast.LENGTH_LONG).show(); //testing, take item from list
+                //Toast.makeText(getBaseContext(), "items: " + products.size(), Toast.LENGTH_LONG).show(); //testing, take item from list
 
             adapter = new MainActivityAdapter(products);
             recyclerView.setAdapter(adapter);
