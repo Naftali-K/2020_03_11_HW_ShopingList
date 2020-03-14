@@ -2,6 +2,7 @@ package com.example.shopinglist;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,9 @@ public class MainActivity extends AppCompatActivity {
 
     Button btnSelect;
     final int NUMBER_REQUEST = 11;
+    ArrayList<String> products = new ArrayList();
+    RecyclerView recyclerView;
+    MainActivityAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +35,16 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity.this, ProductList.class);
                 startActivityForResult(intent, NUMBER_REQUEST);
-
             }
         });
+
+        products.add("Product1");
+        products.add("Product2");
+        products.add("Product3");
+
+        recyclerView = findViewById(R.id.rv_list);
+        adapter = new MainActivityAdapter(products);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -43,12 +54,15 @@ public class MainActivity extends AppCompatActivity {
         //checking if same number request and result of actions OK
         if(requestCode == NUMBER_REQUEST && resultCode == RESULT_OK){
             //if everything ok, going to here
-            String stringFromExtra = data.getStringExtra("productList");
+
+            String stringFromExtra = data.getStringExtra("productList"); //Taking string (JSON) from Extra
 
             Gson gson = new Gson();
-            ArrayList<String> products = gson.fromJson(stringFromExtra, ArrayList.class);
-            //Toast.makeText(getBaseContext(), "num items: " + products.size(), Toast.LENGTH_LONG).show();
-            Toast.makeText(getBaseContext(), "items: " + products.get(0), Toast.LENGTH_LONG).show();
+            products = gson.fromJson(stringFromExtra, ArrayList.class); //Changing string (JSON), to ArrayList.
+                Toast.makeText(getBaseContext(), "items: " + products.size(), Toast.LENGTH_LONG).show(); //testing, take item from list
+
+            adapter = new MainActivityAdapter(products);
+            recyclerView.setAdapter(adapter);
 
         }else{
             //if have any problem, so go to here
